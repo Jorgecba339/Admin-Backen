@@ -25,11 +25,17 @@ router.post('/', [
     ], crearMedicos
 
 );
+// actualizar el nombre del medico y el hospital y el usuario que se extrae del token
+router.put('/:id', [
+        validarJWT,
+        check('nombre', 'El nombre del medico es necesario').not().isEmpty(),
+        check('hospital', 'El hospital id debe de ser valido').isMongoId(),
+        validarCampos
 
-router.put('/:id', [], actualizarMedicos
+    ], actualizarMedicos
 
 );
 
-router.delete('/:id', borrarMedicos);
+router.delete('/:id', validarJWT, borrarMedicos);
 
 module.exports = router;
